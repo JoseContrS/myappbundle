@@ -1,11 +1,11 @@
 def upload(dir, buildType) {
   withAWS(credentials: "aws_apps_credentials", region: "us-west-2") {
     def date = new Date().format("yyyyMMdd")
-    s3Upload(bucket: "belcorp-apps/${dir}/esika/${buildType}/${date}", includePathPattern: "**/*.aab", workingDir: "presentation/build/outputs/bundle/esika${buildType.capitalize()}", acl:"PublicRead")
-    s3Upload(bucket: "belcorp-apps/${dir}/lbel/${buildType}/${date}", includePathPattern: "**/*.aab", workingDir: "presentation/build/outputs/bundle/lbel${buildType.capitalize()}", acl:"PublicRead")
+    s3Upload(bucket: "belcorp-apps/${dir}/esika/${buildType}/${date}", includePathPattern: "**/*.aab", workingDir: "app/build/outputs/bundle/esika${buildType.capitalize()}", acl:"PublicRead")
+    s3Upload(bucket: "belcorp-apps/${dir}/lbel/${buildType}/${date}", includePathPattern: "**/*.aab", workingDir: "app/build/outputs/bundle/lbel${buildType.capitalize()}", acl:"PublicRead")
 
-    s3Upload(bucket: "belcorp-apps/${dir}/esika/${buildType}/${date}", includePathPattern: "**/mapping.txt", workingDir: "presentation/build/outputs/mapping/esika", acl:"PublicRead")
-    s3Upload(bucket: "belcorp-apps/${dir}/lbel/${buildType}/${date}", includePathPattern: "**/mapping.txt", workingDir: "presentation/build/outputs/mapping/lbel", acl:"PublicRead")
+    s3Upload(bucket: "belcorp-apps/${dir}/esika/${buildType}/${date}", includePathPattern: "**/mapping.txt", workingDir: "app/build/outputs/mapping/esika", acl:"PublicRead")
+    s3Upload(bucket: "belcorp-apps/${dir}/lbel/${buildType}/${date}", includePathPattern: "**/mapping.txt", workingDir: "app/build/outputs/mapping/lbel", acl:"PublicRead")
   }
 }
 
