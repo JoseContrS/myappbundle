@@ -1,0 +1,4 @@
+- New features:
+* Update handling for future versions.
+* Better control of the session in the application.
+- Correction of errors of the first version.

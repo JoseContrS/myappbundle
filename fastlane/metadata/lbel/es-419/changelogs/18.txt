@@ -1,0 +1,3 @@
+- Ahora las postulantes pueden ingresar a navegar en el app sin necesidad de código de consultora
+- Mejoras en saludos a las consultoras
+- Corrección de errores

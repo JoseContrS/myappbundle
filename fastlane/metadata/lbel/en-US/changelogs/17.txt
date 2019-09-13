@@ -1,0 +1,6 @@
+- New option to enter Returns & Replacements
+- New option to enter FIC Order
+- New option "My Orders" where you can check your order's information
+- New option to share the Catalogs App
+- Experience improvements and optimizations
+* The options apply according to active features in each country

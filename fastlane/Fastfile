@@ -1,0 +1,84 @@
+default_platform(:android)
+
+platform :android do
+
+  lane :internal do |options|
+    apk = options[:apk]
+    mapping = options[:mapping]
+    marca = options[:marca]
+
+    deployBundle(type: "internal", apk: apk, mapping: mapping, marca: marca)
+  end
+
+  lane :beta do |options|
+    apk = options[:apk]
+    mapping = options[:mapping]
+    marca = options[:marca]
+
+    deploy(type: "beta", apk: apk, mapping: mapping, marca: marca)
+  end
+
+  lane :release do |options|
+    apk = options[:apk]
+    mapping = options[:mapping]
+    marca = options[:marca]
+
+    deploy(type: "production", apk: apk, mapping: mapping, marca: marca)
+  end
+
+  ######################### PRIVATE LANES #########################
+
+  private_lane :deploy do |options|
+    type = options[:type]
+    apk = options[:apk]
+    mapping = options[:mapping]
+    marca = options[:marca]
+    package = ""
+    metadata = ""
+
+    if marca == "esika"
+        package = "biz.belcorp.consultoras.esika"
+        metadata = "fastlane/metadata/esika"
+    elsif marca == "lbel"
+        package = "biz.belcorp.consultoras.lbel"
+        metadata = "fastlane/metadata/lbel"
+    end
+
+    upload_to_play_store(
+      track: type,
+      apk: apk,
+      mapping: mapping,
+      package_name: package,
+      metadata_path: metadata,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+
+  private_lane :deployBundle do |options|
+      type = options[:type]
+      aab = options[:aab]
+      mapping = options[:mapping]
+      marca = options[:marca]
+      package = ""
+      metadata = ""
+
+      if marca == "esika"
+          package = "biz.belcorp.consultoras.esika"
+          metadata = "fastlane/metadata/esika"
+      elsif marca == "lbel"
+          package = "biz.belcorp.consultoras.lbel"
+          metadata = "fastlane/metadata/lbel"
+      end
+
+      upload_to_play_store(
+        track: type,
+        aab: aab,
+        package_name: package,
+        metadata_path: metadata,
+        skip_upload_images: true,
+        skip_upload_screenshots: true
+      )
+    end
+
+end

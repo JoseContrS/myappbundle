@@ -1,0 +1,3 @@
+- Now applicants can enter to navigate the app without the need for a consultant code
+- Improvements in greetings to the consultants
+- Bug fixes

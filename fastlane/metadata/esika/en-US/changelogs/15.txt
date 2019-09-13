@@ -1,0 +1,4 @@
+* My Profile, where you can update your data and photo.
+* Account Statement, so you can review your latest movements.
+* Reminders of your customers' birthday dates.
+* We've also included improvements for reliability and bug fixes.

@@ -1,0 +1,339 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    def config = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.hundred.projectbundle"
+        minSdkVersion 18
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+
+        def env = new Properties()
+
+        if (rootProject.file('env.properties').exists())
+            env.load(new FileInputStream(rootProject.file('env.properties')))
+
+        ci {
+            storeFile rootProject.file(env['store.release.file'])
+            storePassword env['key.store.password']
+            keyAlias env['key.store.alias']
+            keyPassword env['key.password']
+        }
+    }
+
+    buildTypes {
+        def date = new Date().format('yyyyMMdd')
+
+        release {
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            signingConfig signingConfigs.ci
+            matchingFallbacks = ['prd','release']
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            manifestPlaceholders = [build_prefix   : '',
+                                    facebook_app_id: '1667019216926472',
+                                    host           : 'www.somosbelcorp.com',
+                                    path_gana      : "GanaMas",
+                                    pkg_mqvirtual  : 'biz.belcorp.maquillador.provider.data']
+
+            buildConfigField 'String', 'VERSION_APP', "\"${config["androidVersionName"]}\""
+            buildConfigField 'String', 'ANALYTICS', '"Prd"'
+            buildConfigField 'String', 'PASE_PEDIDO', '"https://www.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_OFERTA', '"https://www.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_CUPON', '"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/AppConsultora/PE/TyCCupon.pdf"'
+
+            buildConfigField 'String', 'WP_ACADEMIA', '"http://qasucb.cyzone.com/moodleventas?token="'
+
+            buildConfigField 'String', 'HM_DIRECT_URL', '"https://my301056.s4hana.ondemand.com:443"'
+            buildConfigField 'String', 'HM_MIDDLEWARE_URL', '"https://hmprdmiddlewared28e1bcbb.us2.hana.ondemand.com/mobilechannel"'
+
+            buildConfigField 'String', 'LOG_ACCESS_ID', '"us-east-1:9bc53455-f6ec-4809-a1bb-02818540154a"'
+            buildConfigField 'String', 'LOG_ACCESS_DIR', '"AWS_LOGS"'
+            buildConfigField 'String', 'LOG_ACCESS_STREAM', '"log-usabilidad-stream-prd"'
+            buildConfigField 'int', 'LOG_ACCESS_REGION', '1'
+
+            buildConfigField 'String', 'URL_CAMINO_ALEXITO', '"http://landing.showroombelcorp.com/page/landing/"'
+            buildConfigField 'String', 'URL_CHATBOT', '"https://m.me/BotEsikaCyzoneLbel?ref="'
+
+            buildConfigField 'String', 'APP_MQVIRTUAL_PACKAGE', '"biz.belcorp.maquillador"'
+            buildConfigField 'String', 'APP_MQVIRTUAL_CONTENT_PROVIDER', '"content://biz.belcorp.maquillador.provider.data/Pedidos"'
+
+            buildConfigField 'String', 'URL_REDIRECT_OFERTA', '"/RevistaDigital/ConfirmacionAPP"'
+
+            buildConfigField "boolean", "TIME_SERVER", "true"
+
+            buildConfigField "String", "API_YOUTUBE", '"IzaSyA1EKhJaXH9yiI4yPeYzeWaOwCGd0beZUs"'
+
+            resValue 'string', 'facebook_app_id', '1667019216926472'
+        }
+
+        stage {
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            signingConfig signingConfigs.ci
+            matchingFallbacks = ['prd', 'release']
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            if(!config["isCiServer"]) {
+                applicationIdSuffix ".stage"
+                versionNameSuffix "-rc.${date}"
+            }
+
+            /*manifestPlaceholders = [build_prefix   : 'STAGE ',
+                                        facebook_app_id: '1394138023978921',
+                                        host           : 'sb2ppr.somosbelcorp.com',
+                                        path_gana      : "GanaMas",
+                                        pkg_mqvirtual  : 'biz.belcorp.maquillador.provider.data']
+
+            buildConfigField 'String', 'VERSION_APP', "\"${config["androidVersionName"]}\""
+            buildConfigField 'String', 'ANALYTICS', '"ppr"'
+            buildConfigField 'String', 'PASE_PEDIDO', '"https://sb2ppr.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_OFERTA', '"https://sb2ppr.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_CUPON', '"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/AppConsultora/PE/TyCCupon.pdf"'
+
+            buildConfigField 'String', 'WP_ACADEMIA', '"http://qasucb.cyzone.com/moodleventas?token="'
+
+            buildConfigField 'String', 'HM_DIRECT_URL', '"https://my300972.s4hana.ondemand.com:443"'
+            buildConfigField 'String', 'HM_MIDDLEWARE_URL', '"https://hmqasmiddlewared3a6b9482.us2.hana.ondemand.com/mobilechannel"'
+
+            buildConfigField 'String', 'LOG_ACCESS_ID', '"us-east-1:61066a78-ce02-4c96-bec1-1ea9b9639b52"'
+            buildConfigField 'String', 'LOG_ACCESS_DIR', '"AWS_LOGS"'
+            buildConfigField 'String', 'LOG_ACCESS_STREAM', '"log-usabilidad-consultora-stream-qas"'
+            buildConfigField 'int', 'LOG_ACCESS_REGION', '1'
+
+            buildConfigField 'String', 'URL_CAMINO_ALEXITO', '"http://showroombelcorp.com/crecimiento/page/landing/"'
+            buildConfigField 'String', 'URL_CHATBOT', '"https://m.me/BotEsikaCyzoneLbel?ref="'
+
+            buildConfigField 'String', 'APP_MQVIRTUAL_PACKAGE', '"biz.belcorp.maquillador"'
+            buildConfigField 'String', 'APP_MQVIRTUAL_CONTENT_PROVIDER', '"content://biz.belcorp.maquillador.provider.data/Pedidos"'
+
+            buildConfigField 'String', 'URL_REDIRECT_OFERTA', '"/RevistaDigital/ConfirmacionAPP"'
+
+            buildConfigField "boolean", "TIME_SERVER", "false"
+
+            resValue 'string', 'facebook_app_id', '1394138023978921'*/
+
+
+            /** BETA */
+            manifestPlaceholders = [build_prefix   : '',
+                                    facebook_app_id: '1667019216926472',
+                                    host           : 'www.somosbelcorp.com',
+                                    path_gana      : "GanaMas",
+                                    pkg_mqvirtual  : 'biz.belcorp.maquillador.provider.data']
+
+            buildConfigField 'String', 'VERSION_APP', "\"${config["androidVersionName"]}\""
+            buildConfigField 'String', 'ANALYTICS', '"Prd"'
+            buildConfigField 'String', 'PASE_PEDIDO', '"https://www.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_OFERTA', '"https://www.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_CUPON', '"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/AppConsultora/PE/TyCCupon.pdf"'
+
+            buildConfigField 'String', 'WP_ACADEMIA', '"http://qasucb.cyzone.com/moodleventas?token="'
+
+            buildConfigField 'String', 'HM_DIRECT_URL', '"https://my301056.s4hana.ondemand.com:443"'
+            buildConfigField 'String', 'HM_MIDDLEWARE_URL', '"https://hmprdmiddlewared28e1bcbb.us2.hana.ondemand.com/mobilechannel"'
+
+            buildConfigField 'String', 'LOG_ACCESS_ID', '"us-east-1:9bc53455-f6ec-4809-a1bb-02818540154a"'
+            buildConfigField 'String', 'LOG_ACCESS_DIR', '"AWS_LOGS"'
+            buildConfigField 'String', 'LOG_ACCESS_STREAM', '"log-usabilidad-stream-prd"'
+            buildConfigField 'int', 'LOG_ACCESS_REGION', '1'
+
+            buildConfigField 'String', 'URL_CAMINO_ALEXITO', '"http://landing.showroombelcorp.com/page/landing/"'
+            buildConfigField 'String', 'URL_CHATBOT', '"https://m.me/BotEsikaCyzoneLbel?ref="'
+
+            buildConfigField 'String', 'APP_MQVIRTUAL_PACKAGE', '"biz.belcorp.maquillador"'
+            buildConfigField 'String', 'APP_MQVIRTUAL_CONTENT_PROVIDER', '"content://biz.belcorp.maquillador.provider.data/Pedidos"'
+
+            buildConfigField 'String', 'URL_REDIRECT_OFERTA', '"/RevistaDigital/ConfirmacionAPP"'
+
+            buildConfigField "boolean", "TIME_SERVER", "true"
+
+            buildConfigField "String", "API_YOUTUBE", '"IzaSyA1EKhJaXH9yiI4yPeYzeWaOwCGd0beZUs"'
+
+            resValue 'string', 'facebook_app_id', '1667019216926472'
+
+        }
+
+        develop {
+            debuggable !config["isCiServer"]
+            //minifyEnabled config
+            //shrinkResources config["isCiServer"]
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.ci
+            matchingFallbacks = ['dev', 'develop']
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            if (!config["isCiServer"]) {
+                testCoverageEnabled true
+                applicationIdSuffix '.develop'
+                versionNameSuffix "-nb.${date}"
+            }
+
+            manifestPlaceholders = [build_prefix   : 'DEVELOP ',
+                                    facebook_app_id: '1394138023978921',
+                                    host           : 'sb2qa.somosbelcorp.com',
+                                    path_gana      : "GanaMas",
+                                    pkg_mqvirtual  : 'biz.belcorp.maquillador.provider.data']
+
+            buildConfigField 'String', 'VERSION_APP', "\"${config["androidVersionName"]}\""
+            buildConfigField 'String', 'ANALYTICS', '"Qas"'
+            buildConfigField 'String', 'PASE_PEDIDO', '"https://sb2qa.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_OFERTA', '"https://sb2qa.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_CUPON', '"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/AppConsultora/PE/TyCCupon.pdf"'
+
+            buildConfigField 'String', 'WP_ACADEMIA', '"http://qasucb.cyzone.com/moodleventas?token="'
+
+            buildConfigField 'String', 'HM_DIRECT_URL', '"https://my300972.s4hana.ondemand.com:443"'
+            buildConfigField 'String', 'HM_MIDDLEWARE_URL', '"https://hmqasmiddlewared3a6b9482.us2.hana.ondemand.com/mobilechannel"'
+
+            buildConfigField 'String', 'LOG_ACCESS_ID', '"us-east-1:61066a78-ce02-4c96-bec1-1ea9b9639b52"'
+            buildConfigField 'String', 'LOG_ACCESS_DIR', '"AWS_LOGS"'
+            buildConfigField 'String', 'LOG_ACCESS_STREAM', '"log-usabilidad-consultora-stream-qas"'
+            buildConfigField 'int', 'LOG_ACCESS_REGION', '1'
+
+            buildConfigField 'String', 'URL_CAMINO_ALEXITO', '"http://showroombelcorp.com/crecimiento/page/landing/"'
+            buildConfigField 'String', 'URL_CHATBOT', '"https://m.me/BotEsikaCyzoneLbel?ref="'
+
+            buildConfigField 'String', 'APP_MQVIRTUAL_PACKAGE', '"biz.belcorp.maquillador"'
+            buildConfigField 'String', 'APP_MQVIRTUAL_CONTENT_PROVIDER', '"content://biz.belcorp.maquillador.provider.data/Pedidos"'
+
+            buildConfigField 'String', 'URL_REDIRECT_OFERTA', '"/RevistaDigital/ConfirmacionAPP"'
+
+            buildConfigField "boolean", "TIME_SERVER", "false"
+
+            buildConfigField "String", "API_YOUTUBE", '"IzaSyA1EKhJaXH9yiI4yPeYzeWaOwCGd0beZUs"'
+
+            resValue 'string', 'facebook_app_id', '1394138023978921'
+        }
+
+        review {
+            debuggable !config["isCiServer"]
+            minifyEnabled config["isCiServer"]
+            signingConfig signingConfigs.ci
+            shrinkResources config["isCiServer"]
+            matchingFallbacks = ['dev', 'develop']
+
+            applicationIdSuffix '.review'
+            versionNameSuffix "-nb.${date}"
+
+            if (!config["isCiServer"]) {
+                testCoverageEnabled true
+            } else {
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+
+            manifestPlaceholders = [build_prefix   : 'REVIEW ',
+                                    facebook_app_id: '1948838345332866',
+                                    host           : 'sbappqa.somosbelcorp.com',
+                                    path_gana      : "GanaMas",
+                                    pkg_mqvirtual  : 'biz.belcorp.maquillador.provider.data']
+
+            buildConfigField 'String', 'VERSION_APP', "\"${config["androidVersionName"]}\""
+            buildConfigField 'String', 'ANALYTICS', '"Qas"'
+            buildConfigField 'String', 'PASE_PEDIDO', '"https://sbganaqa.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_OFERTA', '"https://sbganaqa.somosbelcorp.com/Login/IngresoExterno?token="'
+            buildConfigField 'String', 'PASE_CUPON', '"https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/AppConsultora/PE/TyCCupon.pdf"'
+
+            buildConfigField 'String', 'WP_ACADEMIA', '"http://qasucb.cyzone.com/moodleventas?token="'
+
+            buildConfigField 'String', 'HM_DIRECT_URL', '"https://my300972.s4hana.ondemand.com:443"'
+            buildConfigField 'String', 'HM_MIDDLEWARE_URL', '"https://hmqasmiddlewared3a6b9482.us2.hana.ondemand.com/mobilechannel"'
+
+            buildConfigField 'String', 'LOG_ACCESS_ID', '"us-east-1:61066a78-ce02-4c96-bec1-1ea9b9639b52"'
+            buildConfigField 'String', 'LOG_ACCESS_DIR', '"AWS_LOGS"'
+            buildConfigField 'String', 'LOG_ACCESS_STREAM', '"log-usabilidad-consultora-stream-qas"'
+            buildConfigField 'int', 'LOG_ACCESS_REGION', '1'
+
+            buildConfigField 'String', 'URL_CAMINO_ALEXITO', '"http://showroombelcorp.com/crecimiento/page/landing/"'
+            buildConfigField 'String', 'URL_CHATBOT', '"https://m.me/BotEsikaCyzoneLbel?ref="'
+
+            buildConfigField 'String', 'APP_MQVIRTUAL_PACKAGE', '"biz.belcorp.maquillador"'
+            buildConfigField 'String', 'APP_MQVIRTUAL_CONTENT_PROVIDER', '"content://biz.belcorp.maquillador.provider.data/Pedidos"'
+
+            buildConfigField 'String', 'URL_REDIRECT_OFERTA', '"/RevistaDigital/ConfirmacionAPP"'
+
+            buildConfigField "boolean", "TIME_SERVER", "false"
+
+            buildConfigField "String", "API_YOUTUBE", '"IzaSyA1EKhJaXH9yiI4yPeYzeWaOwCGd0beZUs"'
+
+            resValue 'string', 'facebook_app_id', '1948838345332866'
+
+
+        }
+    }
+
+    flavorDimensions "marca"
+
+    productFlavors {
+        esika {
+            manifestPlaceholders = [marca_prefix: "Esika ", app_name: 'Conmigo', path_share: "EsikaConmigo.html", package_ending: "esika"]
+            applicationIdSuffix '.esika'
+
+            dimension "marca"
+
+            matchingFallbacks = ['esika']
+
+            buildConfigField 'String', 'APP_NAME', '"EsikaConmigo"'
+            buildConfigField 'String', 'WP_TUVOZ', '"https://esikatuvozonline.questionpro.com/"'
+        }
+
+        lbel {
+            manifestPlaceholders = [marca_prefix: "L'Bel ", app_name: 'Conmigo', path_share: "LBelConmigo.html", package_ending: "lbel"]
+            applicationIdSuffix '.lbel'
+
+            dimension "marca"
+
+            matchingFallbacks = ['lbel']
+
+            buildConfigField 'String', 'APP_NAME', '"LbelConmigo"'
+            buildConfigField 'String', 'WP_TUVOZ', '"https://lbeltuvozonline.questionpro.com"'
+        }
+    }
+
+    variantFilter { variant ->
+        if (variant.buildType.name == 'debug')
+            setIgnore(true)
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def project = config["appName"]
+            def marca = variant.productFlavors[0].name
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+            outputFileName = "${project}-${marca}-${buildType}-${version}.apk"
+        }
+
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}

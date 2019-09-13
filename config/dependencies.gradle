@@ -1,0 +1,256 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "http://jcenter.bintray.com" }
+        maven { url "https://www.jitpack.io" }
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven {
+            url 'https://s3.amazonaws.com/sdk-ga-releases.cloudmi.datami.com/android/mvn/smisdk/'
+        }
+        maven {
+            credentials {
+                username "admin"
+                password "admin123"
+            }
+            url "http://ec2-34-222-7-55.us-west-2.compute.amazonaws.com:8081/nexus/repository/maven-public/"
+        }
+        maven {
+            url "http://ec2-34-222-7-55.us-west-2.compute.amazonaws.com:8081/nexus/repository/maven-public/"
+        }
+
+        maven{
+            url 'https://sdk.uxcam.com/android/'
+        }
+    }
+}
+
+ext {
+    // ANDROID
+    androidCompileSdkVersion = 27
+    androidTargetSdkVersion = 27
+    androidBuildToolsVersion = "27.0.3"
+    androidMinSdkVersion = 18
+
+    // LIBRERIAS
+    supportVersion = "27.1.1"
+    dataBindingVersion = "3.1.2"
+    googleVersion = "11.4.2"
+    googleBackVersion = "9.6.1"
+    firebaseVersion = "11.4.2"
+    butterknifeVersion = "8.8.1"
+    fontVersion = "2.3.0"
+    retrofitVersion = "2.3.0"
+    gsonVersion = "2.8.5"
+    glideVersion = "4.0.0"
+    daggerVersion = "2.11"
+    reactiveAndroidVersion = "2.0.1"
+    reactiveJavaVersion = "2.1.5"
+    eventVersion = "3.1.1"
+    dbflowVersion = "4.0.2"
+    stethoVersion = "1.5.0"
+    loggerVersion = "2.1.1"
+    timberVersion = "4.6.0"
+    leakCanaryVersion = "1.5.4"
+    multidexVersion = "1.0.2"
+    annotationVersion = "27.1.1"
+    runnerVersion = "1.0.1"
+    rulesVersion = "1.0.1"
+    junitVersion = "4.12"
+    mockitoVersion = "2.28.0"
+    assertVersion = "3.6.2"
+    dexmakerVersion = "1.2"
+    espressoVersion = "3.0.1"
+    spoonVersion = "1.7.1"
+    roboelectricVersion = "3.3.2"
+    jsr305Version = "3.0.1"
+    facebookVersion = "4.35.0"
+    permissionsVersion = "3.3.1"
+    progressRingViewVersion = "1.1.2"
+    confettiVersion = "1.1.0"
+    uCropVersion = "2.2.1"
+    debugDBVersion = "1.0.1"
+    fbJobDispatcherVersion = "0.8.1"
+    datamiVersion = "3.3.4.1"
+    apacheLangVersion = "3.6"
+    okhttpVersion = "3.8.0"
+    kotlinVersion = "1.3.41"
+    androidChartVersion = "v3.0.3"
+    volleyVersion = "1.1.0"
+    jsonSimpleVersion = "1.1"
+    crashlyticsVersion = "2.9.1@aar"
+    ankoVersion = "0.10.3"
+    awsVersion = "2.6.+"
+    coroutinesVersion = "1.3.0-RC"
+    commonsCodecVersion = "1.10"
+    trueTime = "3.3"
+    belcorpComponent = "1.0.5-SNAPSHOT-3"
+    uxCamVersion = "3.1.6@aar"
+    
+    presentationDependencies = [
+        gridlayoutV7          : "com.android.support:gridlayout-v7:${supportVersion}",
+        cardviewV7            : "com.android.support:cardview-v7:${supportVersion}",
+        appcompatV7           : "com.android.support:appcompat-v7:${supportVersion}",
+        supportV4             : "com.android.support:support-v4:${supportVersion}",
+        supportAnnotations    : "com.android.support:support-annotations:${supportVersion}",
+        design                : "com.android.support:design:${supportVersion}",
+        dataBinding           : "com.android.databinding:compiler:${dataBindingVersion}",
+
+        playServices          : "com.google.android.gms:play-services:${googleVersion}",
+        playServicesTagManager: "com.google.android.gms:play-services-tagmanager:${googleVersion}",
+        playServicesAnalytics : "com.google.android.gms:play-services-analytics:${googleVersion}",
+        firebaseCore          : "com.google.firebase:firebase-core:${firebaseVersion}",
+        firebaseMessaging     : "com.google.firebase:firebase-messaging:${firebaseVersion}",
+        firebaseCrash         : "com.google.firebase:firebase-crash:${firebaseVersion}",
+        firebaseInvites       : "com.google.firebase:firebase-invites:${firebaseVersion}",
+        firebaseAppindexing   : "com.google.firebase:firebase-appindexing:${firebaseVersion}",
+        firebasePerf          : "com.google.firebase:firebase-perf:${firebaseVersion}",
+
+        crashlytics           : "com.crashlytics.sdk.android:crashlytics:${crashlyticsVersion}",
+
+        gson                  : "com.google.code.gson:gson:${gsonVersion}",
+
+        butterknife           : "com.jakewharton:butterknife:${butterknifeVersion}",
+        butterknifeCompiler   : "com.jakewharton:butterknife-compiler:${butterknifeVersion}",
+        calligraphy           : "uk.co.chrisjenx:calligraphy:${fontVersion}",
+
+        dagger                : "com.google.dagger:dagger:${daggerVersion}",
+        daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
+        daggerAndroid         : "com.google.dagger:dagger-android:${daggerVersion}",
+        daggerAndroidCompiler : "com.google.dagger:dagger-android-processor:${daggerVersion}",
+        daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${daggerVersion}",
+        rxandroid             : "io.reactivex.rxjava2:rxandroid:${reactiveAndroidVersion}",
+        rxjava                : "io.reactivex.rxjava2:rxjava:${reactiveJavaVersion}",
+        eventbus              : "org.greenrobot:eventbus:${eventVersion}",
+
+        logger                : "com.orhanobut:logger:${loggerVersion}",
+        facebook              : "com.facebook.android:facebook-android-sdk:${facebookVersion}",
+        glide                 : "com.github.bumptech.glide:glide:${glideVersion}",
+        glideCompiler         : "com.github.bumptech.glide:compiler:${glideVersion}",
+        glideIntegration      : "com.github.bumptech.glide:okhttp3-integration:${glideVersion}",
+        permissions           : "com.github.hotchemi:permissionsdispatcher:${permissionsVersion}",
+        permissionsProcessor  : "com.github.hotchemi:permissionsdispatcher-processor:${permissionsVersion}",
+        progressRingView      : "com.github.flepsik:progress-ring-view:${progressRingViewVersion}",
+        confetti              : "com.github.jinatonic.confetti:confetti:${confettiVersion}",
+        uCrop                 : "com.github.yalantis:ucrop:${uCropVersion}",
+        firebaseJobDispatcher : "com.firebase:firebase-jobdispatcher:${fbJobDispatcherVersion}",
+        apacheLang            : "org.apache.commons:commons-lang3:${apacheLangVersion}",
+        datami                : "com.datami:smisdk:${datamiVersion}",
+        kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
+        androidChart          : "com.github.PhilJay:MPAndroidChart:${androidChartVersion}",
+        volley                : "com.android.volley:volley:${volleyVersion}",
+        jsonSimple            : "com.googlecode.json-simple:json-simple:${jsonSimpleVersion}",
+
+        anko                  : "org.jetbrains.anko:anko-commons:${ankoVersion}",
+        awsCore               : "com.amazonaws:aws-android-sdk-core:${awsVersion}",
+        awsKinesis            : "com.amazonaws:aws-android-sdk-kinesis:${awsVersion}",
+        coroutinesCore        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}",
+        coroutinesAndroid     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}",
+
+        commonsCodec          : "commons-codec:commons-codec:${commonsCodecVersion}",
+
+        trueTime                 : "com.github.instacart.truetime-android:library:${trueTime}",
+
+        uxcam                   :    "com.uxcam:uxcam:${uxCamVersion}"
+    ]
+
+    presentationTestDependencies = [
+        runner            : "com.android.support.test:runner:${runnerVersion}",
+        rules             : "com.android.support.test:rules:${rulesVersion}",
+        junit             : "junit:junit:${junitVersion}",
+        assertj           : "org.assertj:assertj-core:${assertVersion}",
+        mockitoCore       : "org.mockito:mockito-core:${mockitoVersion}",
+        dexmaker          : "com.google.dexmaker:dexmaker:te${dexmakerVersion}",
+        dexmakerMockito   : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+        espressoCore      : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+        espressoContrib   : "com.android.support.test.espresso:espresso-contrib:${espressoVersion}",
+        espressoIntents   : "com.android.support.test.espresso:espresso-intents:${espressoVersion}",
+        espressoWeb       : "com.android.support.test.espresso:espresso-web:${espressoVersion}",
+        spoon             : "com.squareup.spoon:spoon-client:${spoonVersion}",
+        supportAnnotations: "com.android.support:support-annotations:${annotationVersion}",
+        jsr305            : "com.google.code.findbugs:jsr305:${jsr305Version}",
+        debugDB           : "com.amitshekhar.android:debug-db:${debugDBVersion}"
+    ]
+
+    domainDependencies = [
+        supportAnnotations   : "com.android.support:support-annotations:${supportVersion}",
+        dagger               : "com.google.dagger:dagger:${daggerVersion}",
+        daggerCompiler       : "com.google.dagger:dagger-compiler:${daggerVersion}",
+        daggerAndroid        : "com.google.dagger:dagger-android:${daggerVersion}",
+        daggerAndroidCompiler: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+        daggerAndroidSupport : "com.google.dagger:dagger-android-support:${daggerVersion}",
+        rxandroid            : "io.reactivex.rxjava2:rxandroid:${reactiveAndroidVersion}",
+        rxjava               : "io.reactivex.rxjava2:rxjava:${reactiveJavaVersion}",
+        logger               : "com.jakewharton.timber:timber:${timberVersion}",
+        okhttp               : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+        kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
+        dataBinding          : "com.android.databinding:compiler:${dataBindingVersion}"
+    ]
+
+    domainTestDependencies = [
+        runner     : "com.android.support.test:runner:${runnerVersion}",
+        rules      : "com.android.support.test:rules:${rulesVersion}",
+        junit      : "junit:junit:${junitVersion}",
+        assertj    : "org.assertj:assertj-core:${assertVersion}",
+        mockitoCore: "org.mockito:mockito-core:${mockitoVersion}"
+    ]
+
+    dataDependencies = [
+        supportAnnotations   : "com.android.support:support-annotations:${supportVersion}",
+        jsr305               : "com.google.code.findbugs:jsr305:${jsr305Version}",
+        retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+        converterScalars     : "com.squareup.retrofit2:converter-scalars:${retrofitVersion}",
+        converterGson        : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+        adapterRxjava2       : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+        gson                 : "com.google.code.gson:gson:${gsonVersion}",
+        dagger               : "com.google.dagger:dagger:${daggerVersion}",
+        daggerCompiler       : "com.google.dagger:dagger-compiler:${daggerVersion}",
+        daggerAndroid        : "com.google.dagger:dagger-android:${daggerVersion}",
+        daggerAndroidCompiler: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+        daggerAndroidSupport : "com.google.dagger:dagger-android-support:${daggerVersion}",
+        rxandroid            : "io.reactivex.rxjava2:rxandroid:${reactiveAndroidVersion}",
+        rxjava               : "io.reactivex.rxjava2:rxjava:${reactiveJavaVersion}",
+        dbflowCore           : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflowVersion}",
+        dbflow               : "com.github.Raizlabs.DBFlow:dbflow:${dbflowVersion}",
+        dbflowCompiler       : "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflowVersion}",
+        dbflowRxJava         : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflowVersion}",
+        stetho               : "com.facebook.stetho:stetho:${stethoVersion}",
+        stethoOkHttp         : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
+        logger               : "com.jakewharton.timber:timber:${timberVersion}",
+        dbflowKotlin         : "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflowVersion}@aar",
+        kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}",
+        dataBinding          : "com.android.databinding:compiler:${dataBindingVersion}"
+    ]
+
+    dataTestDependencies = [
+        junit         : "junit:junit:${junitVersion}",
+        runner        : "com.android.support.test:runner:${runnerVersion}",
+        rules         : "com.android.support.test:rules:${rulesVersion}",
+        mockitoCore   : "org.mockito:mockito-core:${mockitoVersion}",
+        mockitoAndroid: "org.mockito:mockito-android:${mockitoVersion}",
+        assertj       : "org.assertj:assertj-core:${assertVersion}",
+        roboelectric  : "org.robolectric:robolectric:${roboelectricVersion}",
+        espressoCore  : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+        debugDB       : "com.amitshekhar.android:debug-db:${debugDBVersion}"
+    ]
+
+    developmentDependencies = [
+        leakCanary    : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+        leakCanaryNoOp: "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
+        multidex      : "com.android.support:multidex:${multidexVersion}"
+    ]
+
+    belcorpComponentDependencies = [
+        core        : "biz.belcorp.mobile.components:core:${belcorpComponent}",
+        design      : "biz.belcorp.mobile.components:design:${belcorpComponent}",
+        charts      : "biz.belcorp.mobile.components:charts:${belcorpComponent}",
+        offers      : "biz.belcorp.mobile.components:offers:${belcorpComponent}",
+        dialogs     : "biz.belcorp.mobile.components:dialogs:${belcorpComponent}",
+        scanner     : "biz.belcorp.mobile.components:scanner:${belcorpComponent}"
+    ]
+}

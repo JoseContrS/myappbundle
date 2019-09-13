@@ -1,0 +1,6 @@
+- Nueva opción para ingresar Cambios y Devoluciones
+- Nueva opción para ingresar Pedido FIC
+- Nueva opción "Mis Pedidos" desde donde podrás revisar tu paquete documentario
+- Nueva opción para compartir el App de Catálogos
+- Mejoras de experiencia y optimizaciones
+* Las opciones aplican según funcionalidades activas en cada país

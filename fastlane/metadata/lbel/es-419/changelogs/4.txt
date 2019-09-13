@@ -1,0 +1,4 @@
+- Nueva funcionalidades:
+* Manejo de actualización para las futuras versiones.
+* Mejor control de la sesión en la aplicación.
+- Corrección de errores de la primera versión.

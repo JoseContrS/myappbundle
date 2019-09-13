@@ -1,0 +1,4 @@
+* Mi Perfil, donde podrás actualizar tus datos y foto.
+* Estado de Cuenta, para que revises tus últimos movimientos. 
+* Recordatorios de las fechas de cumpleaños de tus clientes.
+* Se corrigieron errores y se agregaron mejoras.
