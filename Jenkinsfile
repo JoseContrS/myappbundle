@@ -182,7 +182,6 @@ def withAndroid(unit) {
   image.inside("-u 0") {
     withEnv(["CI=true"]) {
         config()
-        library()
 
         sh "./gradlew clean"
         unit()
