@@ -22,7 +22,7 @@ allprojects {
         projectName = 'AppConsultora-Android'
         appName = 'consultoras'
         androidApplicationId = 'biz.belcorp.consultoras'
-        androidVersionCode = 63
+        androidVersionCode = 64
         androidVersionName = '1.4.3'
         testApplicationId = 'biz.belcorp.consultoras.test'
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
