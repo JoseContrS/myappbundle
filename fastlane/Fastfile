@@ -7,7 +7,7 @@ platform :android do
     mapping = options[:mapping]
     marca = options[:marca]
 
-    deployBundle(type: "internal", apk: apk, mapping: mapping, marca: marca)
+    deployBundle(type: "internal", aab: apk, mapping: mapping, marca: marca)
   end
 
   lane :beta do |options|
@@ -15,7 +15,7 @@ platform :android do
     mapping = options[:mapping]
     marca = options[:marca]
 
-    deploy(type: "beta", apk: apk, mapping: mapping, marca: marca)
+    deployBundle(type: "beta", aab: apk, mapping: mapping, marca: marca)
   end
 
   lane :release do |options|
@@ -23,7 +23,7 @@ platform :android do
     mapping = options[:mapping]
     marca = options[:marca]
 
-    deploy(type: "production", apk: apk, mapping: mapping, marca: marca)
+    deployBundle(type: "production", aab: apk, mapping: mapping, marca: marca)
   end
 
   ######################### PRIVATE LANES #########################
